@@ -1,0 +1,68 @@
+<div class="container">
+  <form action="" [formGroup]="forBoth" (ngSubmit)="onSubmit()" class="d-flex">
+    <mat-label style="font-weight: bolder">Employee ID :</mat-label>
+    <mat-form-field>
+      <input matInput placeholder="Enter Employee ID" formControlName="id1" />
+    </mat-form-field>
+    <mat-error *ngIf="forBoth.controls['id1'].invalid">
+      Please enter a valid email address
+    </mat-error>
+
+    <mat-label style="font-weight: bolder">Date :</mat-label>
+    <mat-form-field>
+      <input
+        matInput
+        [matDatepicker]="datepicker"
+        placeholder="Choose a date"
+        formControlName="date"
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="datepicker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #datepicker></mat-datepicker>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">Submit</button>
+  </form>
+</div>
+<br />
+<br />
+<br />
+<!-- <table>
+  <tr>
+    <th>S.No</th>
+    <th>Employee Id</th>
+    <th>Attendance Date</th>
+  </tr>
+  <tr *ngFor="let output of outputs; let i = index">
+    <td>{{ i + 1 }}</td>
+    <td>{{ output.empid }}</td>
+    <td>{{ output.date }}</td>
+  </tr>
+</table> -->
+
+<div style="margin-left: 10%; margin-right: 10%">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="S.No">
+      <th mat-header-cell *matHeaderCellDef style="color: #4156c0">
+        Serial Number
+      </th>
+      <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Employee ID">
+      <th mat-header-cell *matHeaderCellDef style="color: #4156c0">
+        Employee ID
+      </th>
+      <td mat-cell *matCellDef="let element">{{ element.empid }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Date">
+      <th mat-header-cell *matHeaderCellDef style="color: #4156c0">Date</th>
+      <td mat-cell *matCellDef="let element">{{ element.date }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>

@@ -1,0 +1,16 @@
+.toast-error {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  color: rgb(255, 54, 54);
+  font-weight: bold;
+  padding: 0px;
+}
+.toast-success {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  color: rgb(0, 255, 119);
+  font-weight: bold;
+  padding: 0px;
+}

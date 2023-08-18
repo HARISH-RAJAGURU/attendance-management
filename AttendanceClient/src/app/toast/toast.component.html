@@ -1,0 +1,14 @@
+<div *ngIf="messagetype === 'success'"  class="toast-success">
+  <h3>
+    {{ data.message }}
+  </h3>
+  <button mat-button color="warn" (click)="snackBarRef.dismiss()" >&#10060;</button>
+</div>
+<div *ngIf="messagetype === 'error'" class="toast-error">
+  <h2>
+    {{ data.message }}
+  </h2>
+  <button mat-button color="warn" (click)="snackBarRef.dismiss()" >&#10060;</button>
+</div>
+
+
