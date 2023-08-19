@@ -21,6 +21,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ToastComponent } from './toast/toast.component';
 
+
+import {MatRadioModule} from '@angular/material/radio';
+
 @NgModule({
   declarations: [AppComponent, DisplayComponent, DateFormatPipe, ToastComponent],
   imports: [
@@ -38,6 +41,7 @@ import { ToastComponent } from './toast/toast.component';
     MatNativeDateModule,
     MatDatepickerModule,
     MatSnackBarModule,
+    MatRadioModule
   ],
   providers: [],
   bootstrap: [AppComponent],

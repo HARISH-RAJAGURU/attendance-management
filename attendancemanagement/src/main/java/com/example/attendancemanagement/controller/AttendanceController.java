@@ -2,6 +2,7 @@ package com.example.attendancemanagement.controller;
 
 import java.util.List;
 
+import com.example.attendancemanagement.dto.DateRangeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -59,11 +60,32 @@ public class AttendanceController {
         Long id = employeeDTO.getId();
         String date = employeeDTO.getDate();
 
-        if(date != null){
+
+        if(id == -1 && date !=null){
+            return attendancerepo.findByDate(date);
+        } else if(date !=null){
             return attendancerepo.findByEmpidAndDate(id,date);
-        }else{
+        } else{
             return attendancerepo.findByEmpid(id);
         }
+
+
+
+
+        //        if(date != null){
+//            return attendancerepo.findByEmpidAndDate(id,date);
+//        }else{
+//            return attendancerepo.findByEmpid(id);
+//        }
+
+    }
+
+
+    @PostMapping("/attendance-by-date-range")
+    public List<EmployeeAttendance> getAttendanceByDateRange(@RequestBody DateRangeDTO dateRangeDTO) {
+        String startDate = dateRangeDTO.getStartDate();
+        String endDate = dateRangeDTO.getEndDate();
+        return attendancerepo.findByDateBetween(startDate, endDate);
     }
 
 

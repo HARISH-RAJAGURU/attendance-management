@@ -1,45 +1,69 @@
 <div class="container">
-  <form action="" [formGroup]="forBoth" (ngSubmit)="onSubmit()" class="d-flex">
+  <form action="" [formGroup]="forBoth" (ngSubmit)="onSubmit()" class="d-flex" #formRef="ngForm">
+    <mat-radio-group formControlName="view">
+      <mat-label style="font-weight: bolder">Select Your Role</mat-label>
+
+      <mat-radio-button value="HR" >HR</mat-radio-button>
+      <mat-radio-button value="Employee">Employee</mat-radio-button>
+    </mat-radio-group>
+    <mat-error *ngIf="formRef.submitted &&forBoth.controls['view'].invalid">
+      Please Your Role
+    </mat-error>
+    <br>
     <mat-label style="font-weight: bolder">Employee ID :</mat-label>
-    <mat-form-field>
-      <input matInput placeholder="Enter Employee ID" formControlName="id1" />
+    <mat-form-field >
+      <input matInput placeholder="Enter Employee ID" formControlName="id1"/>
     </mat-form-field>
-    <mat-error *ngIf="forBoth.controls['id1'].invalid">
-      Please enter a valid email address
+    <mat-error *ngIf="formRef.submitted && forBoth.controls['id1'].invalid">
+      Please enter the ID
     </mat-error>
 
-    <mat-label style="font-weight: bolder">Date :</mat-label>
-    <mat-form-field>
-      <input
-        matInput
-        [matDatepicker]="datepicker"
-        placeholder="Choose a date"
-        formControlName="date"
-      />
-      <mat-datepicker-toggle
-        matSuffix
-        [for]="datepicker"
-      ></mat-datepicker-toggle>
-      <mat-datepicker #datepicker></mat-datepicker>
-    </mat-form-field>
+    <mat-radio-group >
+      <mat-label style="font-weight: bolder">Select Format</mat-label>
+
+      <mat-radio-button value="with" (click)="withClicked()">With Date Range</mat-radio-button>
+      <mat-radio-button value="without" (click)="withoutClicked()">Without Date Range </mat-radio-button>
+    </mat-radio-group>
+
+     
+
+    <section *ngIf="without">
+      <mat-label style="font-weight: bolder">Date :</mat-label>
+      <mat-form-field>
+        <input
+          matInput
+          [matDatepicker]="datepicker"
+          placeholder="Choose a date"
+          formControlName="date"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="datepicker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #datepicker></mat-datepicker>
+      </mat-form-field>
+    </section>
+   
+    <section *ngIf="with">
+      <mat-label style="font-weight: bolder">Date Range :</mat-label>
+      <mat-form-field>
+        <mat-label>Enter a date range</mat-label>
+        <mat-date-range-input [rangePicker]="picker">
+          <input matStartDate placeholder="Start date" formControlName="range1">
+          <input matEndDate placeholder="End date" formControlName="range2">
+        </mat-date-range-input>
+        <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
+    </section>
+
     <button mat-raised-button color="primary" type="submit">Submit</button>
   </form>
 </div>
 <br />
 <br />
 <br />
-<!-- <table>
-  <tr>
-    <th>S.No</th>
-    <th>Employee Id</th>
-    <th>Attendance Date</th>
-  </tr>
-  <tr *ngFor="let output of outputs; let i = index">
-    <td>{{ i + 1 }}</td>
-    <td>{{ output.empid }}</td>
-    <td>{{ output.date }}</td>
-  </tr>
-</table> -->
 
 <div style="margin-left: 10%; margin-right: 10%">
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
