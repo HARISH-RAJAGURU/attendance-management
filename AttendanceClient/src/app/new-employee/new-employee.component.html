@@ -1,0 +1,21 @@
+<form action="" [formGroup]="newEmployee" (ngSubmit)="onSubmit()"  class="d-flex">
+  <mat-label style="font-weight: bolder">Employee Name :</mat-label>
+  <mat-form-field>
+    <input matInput placeholder="Enter the Name" formControlName="empName" />
+    <mat-error> Please the Name </mat-error>
+  </mat-form-field>
+  <mat-label style="font-weight: bolder">Date of Birth:</mat-label>
+  <mat-form-field>
+    <input
+      matInput
+      [matDatepicker]="datepicker"
+      placeholder="Choose a date"
+      formControlName="date"
+      formControlName="dob"
+    />
+    <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+    <mat-datepicker #datepicker></mat-datepicker>
+  </mat-form-field>
+
+  <button mat-raised-button style="background-color: #183D3D; color: white;" type="submit">Submit</button>
+</form>

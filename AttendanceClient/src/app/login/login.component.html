@@ -1,0 +1,39 @@
+<section>
+  <form
+    action=""
+    class="d-flex"
+    (ngSubmit)="onSubmit()"
+    [formGroup]="authentication"
+    #formRef="ngForm"
+  >
+    <mat-label style="font-weight: bolder">Email :</mat-label>
+    <mat-form-field>
+      <input
+        type="email"
+        matInput
+        placeholder="Ex. pat@example.com"
+        formControlName="empEmail"
+      />
+      <mat-error
+        *ngIf="formRef.submitted && authentication.controls['empEmail'].invalid"
+      >
+        Please enter a valid email address
+      </mat-error>
+    </mat-form-field>
+
+    <mat-label style="font-weight: bolder">Password :</mat-label>
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="Enter the Password"
+        formControlName="password"
+      />
+      <mat-error
+        *ngIf="formRef.submitted && authentication.controls['password'].invalid"
+      >
+        This field is mandatory
+      </mat-error>
+    </mat-form-field>
+    <button type="submit" mat-raised-button style="background-color: #183D3D; color: #fff;">Submit</button>
+  </form>
+</section>

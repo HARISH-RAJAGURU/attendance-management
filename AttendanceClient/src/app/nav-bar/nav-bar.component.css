@@ -1,0 +1,26 @@
+.d-flex-between{
+    display: flex;
+    justify-content:space-between;
+    background-color: #183D3D;
+    padding: 1%;
+    flex-basis: 60%;
+}
+.d-flex{
+    display: flex;
+    justify-content:space-evenly;
+    background-color: #183D3D;
+    padding: 1%;
+    flex-basis: 40%;
+}
+a{
+    color: white;
+    font-size: x-large;
+    font-weight: bolder;
+}
+
+a:hover{
+    color: #5C8374;
+}
+
+
+

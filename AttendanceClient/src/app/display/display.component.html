@@ -1,92 +1,91 @@
-<div class="container">
-  <form action="" [formGroup]="forBoth" (ngSubmit)="onSubmit()" class="d-flex" #formRef="ngForm">
-    <mat-radio-group formControlName="view">
-      <mat-label style="font-weight: bolder">Select Your Role</mat-label>
+<section class="d-grid">
+  <mat-card class="example-card" style="background-color:#5C8374">
+    <mat-card-content>
+      <div>
+        <form
+          action=""
+          [formGroup]="forBoth"
+          (ngSubmit)="onSubmit()"
+          class="d-flex" 
+          #formRef="ngForm"
+        >
+          <section>
+            <mat-radio-group formControlName="view">
+              <mat-label style="font-weight: bolder;"
+                >Select Your Role</mat-label
+              >
+              <br />
+              <mat-radio-button value="HR"><span style=" color: #183D3D;">HR</span></mat-radio-button>
+              <mat-radio-button value="Employee"><span style=" color: #183D3D;">Employee</span></mat-radio-button>
+            </mat-radio-group>
+            <mat-error
+              *ngIf="formRef.submitted && forBoth.controls['view'].invalid"
+            >
+              Please Your Role
+            </mat-error>
+          </section>
+          <section>
+            <mat-label style="font-weight: bolder">Employee ID :</mat-label>
+            <br />
+            <mat-form-field >
+              <input
+                matInput
+                placeholder="Enter Employee ID"
+                formControlName="id1"
+               
+              />
+              <mat-error
+                *ngIf="formRef.submitted && forBoth.controls['id1'].invalid"
+              >
+                Please enter the ID
+              </mat-error>
+            </mat-form-field>
+          </section>
 
-      <mat-radio-button value="HR" >HR</mat-radio-button>
-      <mat-radio-button value="Employee">Employee</mat-radio-button>
-    </mat-radio-group>
-    <mat-error *ngIf="formRef.submitted &&forBoth.controls['view'].invalid">
-      Please Your Role
-    </mat-error>
-    <br>
-    <mat-label style="font-weight: bolder">Employee ID :</mat-label>
-    <mat-form-field >
-      <input matInput placeholder="Enter Employee ID" formControlName="id1"/>
-    </mat-form-field>
-    <mat-error *ngIf="formRef.submitted && forBoth.controls['id1'].invalid">
-      Please enter the ID
-    </mat-error>
+          <section>
+            <mat-label style="font-weight: bolder">Date Range :</mat-label>
+            <br />
+            <mat-form-field>
+              <mat-label>Enter a date range</mat-label>
+              <mat-date-range-input [rangePicker]="picker">
+                <input
+                  matStartDate
+                  placeholder="Start date"
+                  formControlName="range1"
+                />
+                <input
+                  matEndDate
+                  placeholder="End date"
+                  formControlName="range2"
+                />
+              </mat-date-range-input>
+              <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+              <mat-datepicker-toggle
+                matIconSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-date-range-picker #picker></mat-date-range-picker>
+            </mat-form-field>
+          </section>
 
-    <mat-radio-group >
-      <mat-label style="font-weight: bolder">Select Format</mat-label>
+          <section>
+            <button mat-raised-button style="background-color: #183D3D; color: #fff;" type="submit">
+              Submit
+            </button>
+          </section>
+        </form>
+      </div>
+    </mat-card-content>
+  </mat-card>
 
-      <mat-radio-button value="with" (click)="withClicked()">With Date Range</mat-radio-button>
-      <mat-radio-button value="without" (click)="withoutClicked()">Without Date Range </mat-radio-button>
-    </mat-radio-group>
-
-     
-
-    <section *ngIf="without">
-      <mat-label style="font-weight: bolder">Date :</mat-label>
-      <mat-form-field>
-        <input
-          matInput
-          [matDatepicker]="datepicker"
-          placeholder="Choose a date"
-          formControlName="date"
-        />
-        <mat-datepicker-toggle
-          matSuffix
-          [for]="datepicker"
-        ></mat-datepicker-toggle>
-        <mat-datepicker #datepicker></mat-datepicker>
-      </mat-form-field>
-    </section>
-   
-    <section *ngIf="with">
-      <mat-label style="font-weight: bolder">Date Range :</mat-label>
-      <mat-form-field>
-        <mat-label>Enter a date range</mat-label>
-        <mat-date-range-input [rangePicker]="picker">
-          <input matStartDate placeholder="Start date" formControlName="range1">
-          <input matEndDate placeholder="End date" formControlName="range2">
-        </mat-date-range-input>
-        <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-date-range-picker #picker></mat-date-range-picker>
-      </mat-form-field>
-    </section>
-
-    <button mat-raised-button color="primary" type="submit">Submit</button>
-  </form>
-</div>
-<br />
-<br />
-<br />
-
-<div style="margin-left: 10%; margin-right: 10%">
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-    <ng-container matColumnDef="S.No">
-      <th mat-header-cell *matHeaderCellDef style="color: #4156c0">
-        Serial Number
-      </th>
-      <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="Employee ID">
-      <th mat-header-cell *matHeaderCellDef style="color: #4156c0">
-        Employee ID
-      </th>
-      <td mat-cell *matCellDef="let element">{{ element.empid }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="Date">
-      <th mat-header-cell *matHeaderCellDef style="color: #4156c0">Date</th>
-      <td mat-cell *matCellDef="let element">{{ element.date }}</td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
-</div>
+  <mat-card class="example-card" style="background-color:#5C8374">
+    <mat-card-content>
+      <app-table [dataInput]="outputs"></app-table
+    ></mat-card-content>
+  </mat-card>
+  <mat-card class="example-card" style="background-color:#5C8374">
+    <mat-card-content>
+      <app-bar-chart [dataInput]="outputs"></app-bar-chart>
+    </mat-card-content>
+  </mat-card>
+</section>

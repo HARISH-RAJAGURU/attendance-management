@@ -16,4 +16,10 @@ export class ShowAttendanceByBothService {
    
     return this.http.post(url, data);
   }
+
+  getAttendanceByBothWithDateRange(data : any) : Observable<any>{
+    const url = `${this.baseUrl}/attendance-all-by-date-range`;
+    console.log(data)
+    return this.http.post(url ,data);
+  }
 }

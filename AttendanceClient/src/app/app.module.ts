@@ -23,9 +23,30 @@ import { ToastComponent } from './toast/toast.component';
 
 
 import {MatRadioModule} from '@angular/material/radio';
+import { LoginComponent } from './login/login.component';
+import { RouterModule,Routes } from '@angular/router';
+import { TableComponent } from './table/table.component';
+import { BarChartComponent } from './bar-chart/bar-chart.component';
+
+import { HighchartsChartModule } from 'highcharts-angular';
+import { NewEmployeeComponent } from './new-employee/new-employee.component';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
+
+import {MatCardModule} from '@angular/material/card';
+import { HomeComponent } from './home/home.component';
+import { AuthGuard } from './auth.guard';
+
+
+
+const appRoutes: Routes = [
+  { path: '', component: LoginComponent },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'add', component: NewEmployeeComponent, canActivate: [AuthGuard] },
+  { path: 'view', component: DisplayComponent, canActivate: [AuthGuard] },
+];
 
 @NgModule({
-  declarations: [AppComponent, DisplayComponent, DateFormatPipe, ToastComponent],
+  declarations: [AppComponent, DisplayComponent, DateFormatPipe, ToastComponent, LoginComponent, TableComponent, BarChartComponent, NewEmployeeComponent, NavBarComponent, HomeComponent],
   imports: [
     BrowserModule,
     FormsModule,
@@ -41,7 +62,10 @@ import {MatRadioModule} from '@angular/material/radio';
     MatNativeDateModule,
     MatDatepickerModule,
     MatSnackBarModule,
-    MatRadioModule
+    MatRadioModule,
+    RouterModule.forRoot(appRoutes),
+    HighchartsChartModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent],
