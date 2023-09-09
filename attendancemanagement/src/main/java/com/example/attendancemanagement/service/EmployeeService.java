@@ -3,6 +3,9 @@ package com.example.attendancemanagement.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.attendancemanagement.dto.EmployeeAuthDTO;
+import com.example.attendancemanagement.entity.userAuthentication;
+import com.example.attendancemanagement.repository.AuthenticationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,15 +18,14 @@ import com.example.attendancemanagement.repository.EmployeeDataRepository;
 @Service
 public class EmployeeService {
 
-    private final EmployeeAttendanceRepository employeeAttendanceRepository;
-    private final EmployeeDataRepository employeeDataRepository;
-
     @Autowired
-    public EmployeeService(EmployeeAttendanceRepository employeeAttendanceRepository,
-                           EmployeeDataRepository employeeDataRepository) {
-        this.employeeAttendanceRepository = employeeAttendanceRepository;
-        this.employeeDataRepository = employeeDataRepository;
-    }
+    private  EmployeeAttendanceRepository employeeAttendanceRepository;
+    @Autowired
+    private  EmployeeDataRepository employeeDataRepository;
+    @Autowired
+    private AuthenticationRepository authenticationRepository;
+
+
 
     public List<EmployeeDTO> getAllEmployeeDataWithAttendance() {
         List<EmployeeDTO> result = new ArrayList<>();
@@ -39,6 +41,24 @@ public class EmployeeService {
             }
         }
         return result;
+    }
+
+    public List<EmployeeAuthDTO> getDataWithAuthentication(){
+        List<EmployeeAuthDTO> result= new ArrayList<>();
+        List<userAuthentication> users = authenticationRepository.findAll();
+
+        for(userAuthentication user : users){
+            Long employeeId  = user.getEmpid();
+            EmployeeData data = employeeDataRepository.findById(employeeId).orElse(null);
+
+            if(data != null){
+                EmployeeAuthDTO dto = new EmployeeAuthDTO(user , data);
+                result.add(dto);
+            }
+        }
+
+        return result;
+
     }
     
 }

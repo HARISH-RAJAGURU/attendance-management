@@ -8,6 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 public class DateRangeDTO {
+    private Long id;
     private String startDate;
     private String endDate;
 }

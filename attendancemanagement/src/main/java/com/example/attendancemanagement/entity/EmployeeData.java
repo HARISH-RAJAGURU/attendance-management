@@ -15,11 +15,11 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 
-@Table(name="employeeData")
+@Table(name = "employeeData")
 
 public class EmployeeData {
-    
-    @Id 
+
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Long id;
@@ -32,5 +32,5 @@ public class EmployeeData {
 
     @Column(name = "Company")
     private String company;
-    
+
 }

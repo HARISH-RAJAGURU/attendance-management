@@ -70,24 +70,35 @@ public class AttendanceController {
         }
 
 
-
-
-        //        if(date != null){
-//            return attendancerepo.findByEmpidAndDate(id,date);
-//        }else{
-//            return attendancerepo.findByEmpid(id);
-//        }
-
     }
-
 
     @PostMapping("/attendance-by-date-range")
     public List<EmployeeAttendance> getAttendanceByDateRange(@RequestBody DateRangeDTO dateRangeDTO) {
+
         String startDate = dateRangeDTO.getStartDate();
         String endDate = dateRangeDTO.getEndDate();
+
+
         return attendancerepo.findByDateBetween(startDate, endDate);
     }
 
+    @PostMapping("/attendance-all-by-date-range")
+    public List<EmployeeAttendance> getAllAttendanceByDateRange(@RequestBody DateRangeDTO dateRangeDTO) {
+        Long id = dateRangeDTO.getId();
+        String startDate = dateRangeDTO.getStartDate();
+        String endDate = dateRangeDTO.getEndDate();
+
+        if(id ==-1 && startDate!=null && endDate !=null){
+            return attendancerepo.findByDateBetween(startDate,endDate);
+        }else if(startDate!=null && endDate!=null){
+            return attendancerepo.findByEmpidAndDateBetween(id,startDate, endDate);
+        }else if(startDate == endDate){
+            return attendancerepo.findByDate(startDate);
+        }else {
+             return attendancerepo.findByEmpid(id);
+        }
+
+    }
 
 
 
